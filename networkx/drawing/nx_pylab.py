@@ -347,6 +347,7 @@ def draw_networkx_nodes(
     linewidths=None,
     edgecolors=None,
     label=None,
+    auto_margins=True,
 ):
     """Draw the nodes of the graph G.
 
@@ -402,6 +403,10 @@ def draw_networkx_nodes(
     label : [None | string]
         Label for legend
 
+    auto_margins : bool (default=True)
+        Indicates whether to calculate plot margins based on nodes closest to
+        edges.
+
     Returns
     -------
     matplotlib.collections.PathCollection
@@ -428,6 +433,7 @@ def draw_networkx_nodes(
     import matplotlib as mpl
     import matplotlib.collections  # call as mpl.collections
     import matplotlib.pyplot as plt
+    from operator import itemgetter
 
     if ax is None:
         ax = plt.gca()
