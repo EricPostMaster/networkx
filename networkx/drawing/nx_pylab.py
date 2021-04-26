@@ -476,6 +476,29 @@ def draw_networkx_nodes(
         labelleft=False,
     )
 
+    if auto_margins:
+        node_coords_sizes = list(zip(pos.items(), node_size_list))
+
+        x_min = sorted(node_coords_sizes, key=lambda a:a[0][1][0], reverse=False)[0]
+        x_max = sorted(node_coords_sizes, key=lambda a:a[0][1][0], reverse=True)[0]
+        x_node_size = max([x_min, x_max], key=itemgetter(1))[1]
+
+        if x_node_size >= 500:
+            x_margin = (x_node_size/100)/72
+        else:
+            x_margin = (x_node_size/50)/72
+
+        y_min = sorted(node_coords_sizes, key=lambda a:a[0][1][1], reverse=False)[0]
+        y_max = sorted(node_coords_sizes, key=lambda a:a[0][1][1], reverse=True)[0]
+        y_node_size = max([y_min, y_max], key=itemgetter(1))[1]
+
+        if y_node_size >= 500:
+            y_margin = (y_node_size/100)/72
+        else:
+            y_margin = (y_node_size/50)/72
+
+        ax.margins(x_margin, y_margin)
+
     node_collection.set_zorder(2)
     return node_collection
 
